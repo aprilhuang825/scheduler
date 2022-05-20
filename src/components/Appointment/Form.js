@@ -1,21 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "components/Button";
 import InterviewerList from "components/InterviewerList";
 
 export default function Form() {
+  const [student, setStudent] = useState(props.student || "");
+  const [interviewer, setInterviewer] = useState(props.interviewer || null);
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
         <form autoComplete="off">
           <input
             className="appointment__create-input text--semi-bold"
-            name="name"
+            name={student}
             type="text"
             placeholder="Enter Student Name"
-          /*
-            This must be a controlled component
-            your code goes here
-          */
+          onChange={(event) => setStudent(event.target.value)}
           />
         </form>
         <InterviewerList
