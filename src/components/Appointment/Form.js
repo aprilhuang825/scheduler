@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "components/Button";
 import InterviewerList from "components/InterviewerList";
 
-export default function Form() {
+export default function Form(props) {
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   return (
@@ -14,11 +14,13 @@ export default function Form() {
             name={student}
             type="text"
             placeholder="Enter Student Name"
-          onChange={(event) => setStudent(event.target.value)}
+            onChange={(event) => setStudent(event.target.value)}
           />
         </form>
         <InterviewerList
-        /* your code goes here */
+          interviewers={props.interviewer}
+          value={interviewer}
+          onChange={setInterviewer}
         />
       </section>
       <section className="appointment__card-right">
