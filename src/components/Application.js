@@ -46,6 +46,11 @@ const appointments = {
 export default function Application(props) {
   const [day, setDay] = useState("Monday");
   const [days, setDays] = useState([]);
+
+  useEffect(() => {
+    axios.get("/api/days")
+    .then(response => setDays(response.data))
+  }, [])
   return (
     <main className="layout">
       <section className="sidebar">
@@ -69,7 +74,7 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {Object.values(appointments).map(appointment => 
+        {Object.values(appointments).map(appointment =>
           <Appointment
             key={appointment.id}
             {...appointment}
