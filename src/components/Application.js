@@ -10,9 +10,22 @@ export default function Application(props) {
     day: "Monday",
     days: [],
     // you may put the line below, but will have to remove/comment hardcoded appointments variable
-    appointments: {}
+    appointments: {},
+    interviewers: {}
   });
   const dailyAppointments = getAppointmentsForDay(state, state.day);
+  const schedule = dailyAppointments.map((appointment) => {
+    const interview = getInterview(state, appointment.interview);
+
+    return (
+      <Appointment
+        key={appointment.id}
+        id={appointment.id}
+        time={appointment.time}
+        interview={interview}
+      />
+    );
+  });
   const setDay = day => setState({ ...state, day });
   //const setDays = days => setState({ ...state, days });
 
