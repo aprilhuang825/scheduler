@@ -3,18 +3,18 @@ import axios from "axios";
 import "components/Application.scss";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
-import { getAppointmentsForDay } from "helpers/selectors";
+import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "helpers/selectors";
 
 export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    // you may put the line below, but will have to remove/comment hardcoded appointments variable
     appointments: {},
     interviewers: {}
   });
   const dailyAppointments = getAppointmentsForDay(state, state.day);
-
+  const dailyInterviewers = getInterviewersForDay(state, state.day);
+  
   const schedule = dailyAppointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
 
@@ -24,11 +24,11 @@ export default function Application(props) {
         id={appointment.id}
         time={appointment.time}
         interview={interview}
+        interviewers={dailyInterviewers}
       />
     );
   });
   const setDay = day => setState({ ...state, day });
-  //const setDays = days => setState({ ...state, days });
 
   useEffect(() => {
     Promise.all([
@@ -63,12 +63,7 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {dailyAppointments.map(appointment =>
-          <Appointment
-            key={appointment.id}
-            {...appointment}
-          />
-        )}
+        {schedule}
         <Appointment key="last" time="5pm" />
       </section>
     </main>
