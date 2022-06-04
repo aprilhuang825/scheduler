@@ -11,6 +11,7 @@ const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
 const SAVE = "SAVE";
+const DELETE = "DELETE1";
 
 export default function Appointment(props) {
 
@@ -29,6 +30,13 @@ export default function Appointment(props) {
     props.bookInterview(props.id, interview)
       .then(() => transition(SHOW));
   }
+
+  function deleteInterview() {
+    transition(DELETE);
+
+    props.cancelInterview(props.id)
+      .then(() => transition(EMPTY));
+  }
   return (
     <article className="appointment">
       <Header time={props.time} />
@@ -37,6 +45,7 @@ export default function Appointment(props) {
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
+          onDelete={deleteInterview}
         />
       )}
       {mode === CREATE && (
@@ -48,6 +57,11 @@ export default function Appointment(props) {
       {mode === SAVE && (
         <Status
           message="Saving"
+        />
+      )}
+      {mode === DELETE &&(
+        <Status
+          message="Deleting"
         />
       )}
     </article>
