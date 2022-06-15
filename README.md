@@ -21,3 +21,14 @@ npm test
 ```sh
 npm run storybook
 ```
+
+## Dependencies
+- axios
+- classnames
+- fsevents
+- normalize.css
+- react
+- react-dom
+- react-scripts
+
+## Screenshots

@@ -38,7 +38,10 @@ export default function Appointment(props) {
 
       props.bookInterview(props.id, interview)
         .then(() => transition(SHOW))
-        .catch(() => transition(ERROR_SAVE, true));
+        .catch(() => {
+          console.log(".catch")
+          transition(ERROR_SAVE, true)
+        });
     }
   }
 
@@ -88,7 +91,7 @@ export default function Appointment(props) {
       {mode === EDIT && (
         <Form
           name={props.interview.student}
-          interviewer={props.interview.interviewer}
+          interviewer={props.interview && props.interview.interviewer.id}
           interviewers={props.interviewers}
           onCancel={back}
           onSave={save}

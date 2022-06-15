@@ -27,6 +27,7 @@ export default function useApplicationData() {
   }, [state.appointments])
 
   function bookInterview(id, interview) {
+
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
